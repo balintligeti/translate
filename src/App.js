@@ -8,19 +8,19 @@ import uuid from 'uuid'
 class App extends Component {
 
   state = {
-    foreign: "",
-    en: "",
-    id: uuid.v4()
-  };
+    dictionary : []
+}
 
-  saveWord(fore, engl){
-    let forei = fore;
-    let eng = engl;
-    if(eng){
-      this.setState({en: eng})
+  saveWord = (translateThis, translated) => {
+    let word = {
+       foreign : translateThis,
+       en : translated,
+       id: uuid.v4()
     }
+   
+    this.setState({dictionary: [...this.state.dictionary, word]})
+      }
     
-  }
 
   render() {
     return (
@@ -41,7 +41,7 @@ class App extends Component {
               path="/dictionary"
               render={() => (
                 <React.Fragment>
-                  <Dictionary />
+                  <Dictionary newWord={this.state.dictionary} />
                 </React.Fragment>
               )}
             />

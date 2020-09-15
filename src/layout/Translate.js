@@ -15,7 +15,7 @@ export class Translate extends Component {
       handleChange(event) {
         let language = "en";
         let toTranslate = event.target.value;
-        this.setState({toTranslate: event.target.value});
+        this.setState({translateThis: toTranslate});
         
         const translating = transQuestion => {
           this.setState({ translated: toTranslate });
@@ -26,17 +26,13 @@ export class Translate extends Component {
           translating(toTranslate);
         });
       }
-
-      handleOnClick = () => {
-        this.props.save(this.state.translateThis,this.state.translated)
-      }
      
     render() {
         return (
         <div>
             <input onChange={this.handleChange.bind(this)} />
             <p>{this.state.translated}</p>
-            <button onClick={this.handleOnClick}>Save</button>
+            <button onClick={this.props.save.bind(this, this.state.translateThis, this.state.translated)}>Save</button>
         </div>
         )
     }

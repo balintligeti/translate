@@ -24,12 +24,19 @@ export class Dictionary extends Component {
         ]
     }
 
+    componentDidMount(){
+      this.setState({dictionary: [...this.state.dictionary, ...this.props.newWord]})
+    }
 
-    render() {
+    
 
-        return this.state.dictionary.map((dict) => (
-            <DictItem dict={dict}/>
-        ))
+
+
+    render() { return this.state.dictionary.map((dict) => (
+      <DictItem dict={dict}/>
+  )
+  )
+
     }
 }
 

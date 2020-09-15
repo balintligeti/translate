@@ -1,35 +1,42 @@
 import React, { Component } from 'react';
 import { googleTranslate } from "../utils/googleTranslate";
+import uuid from 'uuid'
+
 
 export class Translate extends Component {
 
     state = {
-        question: "",
+        translateThis: "",
+        translated: "",
       };
     
     
     
       handleChange(event) {
         let language = "en";
-        let transQuestion = event.target.value;
-    
+        let toTranslate = event.target.value;
+        this.setState({toTranslate: event.target.value});
+        
         const translating = transQuestion => {
-          this.setState({ question: transQuestion });
+          this.setState({ translated: toTranslate });
         };
     
-        // translate the question when selecting a different language
-        googleTranslate.translate(transQuestion, language, function(err, translation) {
-          transQuestion = translation.translatedText;
-          translating(transQuestion);
+        googleTranslate.translate(toTranslate, language, function(err, translation) {
+          toTranslate = translation.translatedText;
+          translating(toTranslate);
         });
       }
 
-
+      handleOnClick = () => {
+        this.props.save(this.state.translateThis,this.state.translated)
+      }
+     
     render() {
         return (
-        <div style={this.divStyle}>
-            <p>{this.state.question}</p>
+        <div>
             <input onChange={this.handleChange.bind(this)} />
+            <p>{this.state.translated}</p>
+            <button onClick={this.handleOnClick}>Save</button>
         </div>
         )
     }

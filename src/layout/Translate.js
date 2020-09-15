@@ -26,6 +26,8 @@ export class Translate extends Component {
           translating(toTranslate);
         });
       }
+
+    
      
     render() {
         return (

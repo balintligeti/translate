@@ -19,7 +19,7 @@ export class Dictionary extends Component {
           {
             foreign: "űrhajó",
             en: "spacecraft",
-            id: uuid.v4()
+            id: 1
           }
         ]
     }
@@ -29,11 +29,13 @@ export class Dictionary extends Component {
     }
 
     
-
+    delete= (id) => {
+      this.setState({ dictionary: [...this.state.dictionary.filter(word => word.id !== id)]})
+    }
 
 
     render() { return this.state.dictionary.map((dict) => (
-      <DictItem dict={dict}/>
+      <DictItem dict={dict} delete={this.delete}/>
   )
   )
 

@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { googleTranslate } from "../utils/googleTranslate";
-import uuid from 'uuid'
 
 
 export class Translate extends Component {
@@ -9,15 +8,13 @@ export class Translate extends Component {
         translateThis: "",
         translated: "",
       };
-    
-    
-    
+
       handleChange(event) {
         let language = "en";
         let toTranslate = event.target.value;
         this.setState({translateThis: toTranslate});
         
-        const translating = transQuestion => {
+        const translating = () => {
           this.setState({ translated: toTranslate });
         };
     
@@ -27,8 +24,6 @@ export class Translate extends Component {
         });
       }
 
-    
-     
     render() {
         return (
         <div>

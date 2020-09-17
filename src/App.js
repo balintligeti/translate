@@ -1,27 +1,26 @@
-import React, { Component } from "react";
+import React, { Component, useState, useEffect } from "react";
 import Translate from "./layout/Translate";
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 import Header from './layout/Header'
 import Dictionary from "./layout/Dictionary";
-import uuid from 'uuid'
 
 class App extends Component {
 
-  state = {
-    dictionary : []
-}
-
-  saveWord = (translateThis, translated) => {
-    let word = {
-       foreign : translateThis,
-       en : translated,
-       id: uuid.v4()
+  saveWord = (foreign, en) => {
+    if (en !== ""){
+      fetch('http://localhost:3001/dictionaries', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({foreign, en}),
+      })
+        .then(response => {
+          return response.text();
+      })
     }
-   
-    this.setState({dictionary: [...this.state.dictionary, word]})
-      }
+  }
     
-
   render() {
     return (
       <Router>
@@ -41,13 +40,12 @@ class App extends Component {
               path="/dictionary"
               render={() => (
                 <React.Fragment>
-                  <Dictionary newWord={this.state.dictionary} />
+                  <Dictionary />
                 </React.Fragment>
               )}
             />
         </div>
       </Router>
-      
     );
   }
 

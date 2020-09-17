@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
 import DictItem from './DictItem';
 
+
 export class Dictionary extends Component {
 
     state = {
       database_dictionary : []
     }
 
-    //DATABASE//
     getDictionaries() {
       fetch('http://localhost:3001')
         .then(response => {
@@ -29,7 +29,7 @@ export class Dictionary extends Component {
           this.getDictionaries();
         });
     }
-    ////////////
+
     componentDidMount(){
       this.getDictionaries();
       this.deleteWord(14)
@@ -42,8 +42,8 @@ export class Dictionary extends Component {
 
     render()
     { 
-      return this.state.database_dictionary.map((dict) => (
-      <DictItem dict={dict} delete={this.deleteWord}/>))
+      return <div class="container">{this.state.database_dictionary.map((dict) => (
+        <DictItem dict={dict} delete={this.deleteWord}/>))}</div>
     }
 }
 

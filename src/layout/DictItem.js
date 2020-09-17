@@ -7,8 +7,9 @@ export class DictItem extends Component {
     }
     render() {
         return (
-            <div>
-                <p>{this.props.dict.foreignWord} | {this.props.dict.engWord}</p> <button onClick={this.props.delete.bind(this, this.props.dict.id)}>(X)</button>
+            <div class="dictItem">
+                <p class="wordText">{this.props.dict.foreignWord} | {this.props.dict.engWord}</p>
+                <button class="btn mt-n3 btnText btn-outline-dark"onClick={this.props.delete.bind(this, this.props.dict.id)}>X</button> 
             </div>
         )
     }

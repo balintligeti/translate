@@ -1,35 +1,39 @@
 import React, { Component } from 'react';
 import { googleTranslate } from "../utils/googleTranslate";
+import 'bootstrap/dist/css/bootstrap.min.css'
+import { Card } from 'react-bootstrap';
+
 
 export class Translate extends Component {
 
     state = {
-        question: "",
+        translateThis: "",
+        translated: "",
       };
-    
-    
-    
+
       handleChange(event) {
         let language = "en";
-        let transQuestion = event.target.value;
+        let toTranslate = event.target.value;
+        this.setState({translateThis: toTranslate});
     
-        const translating = transQuestion => {
-          this.setState({ question: transQuestion });
-        };
-    
-        // translate the question when selecting a different language
-        googleTranslate.translate(transQuestion, language, function(err, translation) {
-          transQuestion = translation.translatedText;
-          translating(transQuestion);
+        googleTranslate.translate(toTranslate, language, function(err, translation) {
+          toTranslate = translation.translatedText;
+          translating(toTranslate);
         });
-      }
 
+        const translating = () => {
+          this.setState({ translated: toTranslate });
+        };
+      }
 
     render() {
         return (
-        <div style={this.divStyle}>
-            <p>{this.state.question}</p>
-            <input onChange={this.handleChange.bind(this)} />
+        <div class="translateCard">
+          <Card >
+          <input class="input" onChange={this.handleChange.bind(this)} />
+            <p class="translated"> {this.state.translated}</p>
+            <button onClick={this.props.save.bind(this, this.state.translateThis, this.state.translated)} type="button" class="btn btn-outline-success ">Save</button>
+          </Card>
         </div>
         )
     }

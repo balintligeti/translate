@@ -15,15 +15,15 @@ export class Translate extends Component {
         let language = "en";
         let toTranslate = event.target.value;
         this.setState({translateThis: toTranslate});
-        
-        const translating = () => {
-          this.setState({ translated: toTranslate });
-        };
     
         googleTranslate.translate(toTranslate, language, function(err, translation) {
           toTranslate = translation.translatedText;
           translating(toTranslate);
         });
+
+        const translating = () => {
+          this.setState({ translated: toTranslate });
+        };
       }
 
     render() {
